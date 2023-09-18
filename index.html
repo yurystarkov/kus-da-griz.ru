@@ -6,18 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <title>Кусь да грызь</title>
 </head>
 
 <body class="bg-[url('assets/background.png')]">
+
+
+  <!-- NAVIGATION -->
   <nav class="p-5 bg-[#f0d48c] shadow md:flex md:items-center md:justify-between">
     <div class="flex justify-between items-center ">
-      <span class="text-2xl font-[Poppins] cursor-pointer">
+      <span class="cursor-pointer">
         <img class="h-20 inline" src="assets/logo.png">
       </span>
 
       <span class="text-3xl cursor-pointer mx-2 md:hidden block">
-        <ion-icon name="menu" onclick="Menu(this)"></ion-icon>
+        <ion-icon name="menu" onclick="menu(this)"></ion-icon>
       </span>
     </div>
 
@@ -32,9 +36,22 @@
     </ul>
   </nav>
 
+  <div class='fixed -z-10 top-40 left-5 right-5'>
+    <p class='text-xl'>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+      sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud
+      exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in
+      voluptate velit esse cillum dolore eu fugiat nulla
+      pariatur. Excepteur sint occaecat cupidatat non proident,
+      sunt in culpa qui officia deserunt mollit anim id est
+      laborum.
+      </p>
+  </div>
 
   <script>
-    function Menu(e){
+    function menu(e){
       let list = document.querySelector('ul');
       e.name === 'menu' ? (e.name = "close",list.classList.add('top-[100px]') , list.classList.add('opacity-100')) :( e.name = "menu" ,list.classList.remove('top-[100px]'),list.classList.remove('opacity-100'))
     }
