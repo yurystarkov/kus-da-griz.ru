@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <title>Кусь да грызь</title>
+</head>
+
+<body class="bg-[url('assets/background.png')]">
+
+
+  <!-- NAVIGATION -->
+  <nav class="p-5 bg-[#f0d48c] shadow md:flex md:items-center md:justify-between">
+    <div class="flex justify-between items-center ">
+      <span class="cursor-pointer">
+        <a href="index.html"><img class="h-20 inline" src="assets/logo.png"></a>
+      </span>
+
+      <span class="text-3xl cursor-pointer mx-2 md:hidden block">
+        <ion-icon name="menu" onclick="menu(this)"></ion-icon>
+      </span>
+    </div>
+
+    <ul class="md:flex md:items-center z-[-1] md:z-auto md:static absolute bg-[#f0d48c] w-full left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-7 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-500">
+      <li class="mx-4 my-6 md:my-0">
+        <a href="about.html" class="text-xl hover:text-cyan-500 duration-500">О НАС</a>
+      </li>
+      <li class="mx-4 my-6 md:my-0">
+        <a href="contacts.html" class="text-xl hover:text-cyan-500 duration-500">КОНТАКТЫ</a>
+      </li>
+<h2 class=""></h2>
+    </ul>
+  </nav>
+
+  <script>
+    function menu(e){
+      let list = document.querySelector('ul');
+      e.name === 'menu' ? (e.name = "close",list.classList.add('top-[100px]') , list.classList.add('opacity-100')) :( e.name = "menu" ,list.classList.remove('top-[100px]'),list.classList.remove('opacity-100'))
+    }
+  </script>
+</body>
+
+</html>
