@@ -1,0 +1,193 @@
+<!doctype html>
+<html class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@3.8.3/dist/full.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
+  <title>КУСЬ ДА ГРЫЗЬ</title>
+  <link rel="icon" href="assets/favicon.ico">
+  <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+  <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body class="bg-[url('assets/background.png')]">
+
+  <!-- NAVIGATION -->
+  <nav class="sticky w-screen top-0 h-21 p-5 bg-[#f0d48c] shadow md:flex md:items-center md:justify-between">
+    <div class="flex justify-between items-center">
+      <span class="cursor-pointer">
+        <a href="index.html"><img class="h-16 inline" src="assets/logo.png"></a>
+      </span>
+
+      <span class="mx-2 md:pl-10">
+        <a href="tel:+7(967)-602-9791" class="text-lg flex items-center justify-center md:text-xl md:mx-4 md:my-6">
+          +7(967)-602-9791
+        </a>
+      </span>
+
+      <span class="text-3xl cursor-pointer mx-2 md:hidden block">
+        <ion-icon name="menu" onclick="menu(this)"></ion-icon>
+      </span>
+    </div>
+
+    <ul
+      class="md:flex md:items-center md:z-auto md:static absolute bg-[#f0d48c] w-full left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-7 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-500">
+      <li class="mx-4 my-6 md:my-0">
+        <a href="#about" class="text-xl duration-500">О НАС</a>
+      </li>
+      <li class="mx-4 my-6 md:my-0">
+        <a href="#contacts" class="text-xl duration-500">КОНТАКТЫ</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Main modal -->
+  <div id="defaultModal" tabindex="-1" aria-hidden="true"
+    class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-2xl max-h-full">
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <form method="post" accept-charset="utf-8">
+        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-xl text-gray-900 dark:text-white">
+            Ваши контактные данные
+          </h3>
+          <button type="button"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            data-modal-hide="defaultModal">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+        <div class="p-6 space-y-6">
+          <label for="name">Имя
+          <input name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" name="name">
+          </label>
+          <br>
+          <label for="phone">Телефон
+          <input name="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" name="phone" size="50">
+          </label>
+          </div>
+          <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+            <input type="submit" class="text-white bg-[#402c1c] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"  value="Отправить">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <section id="main">
+    <div class="py-10 -z-10">
+      <div class="container mx-auto flex flex-col md:flex-row my-6 md:my-50">
+        <div class="flex flex-col w-full p-8">
+          <p class="text-4xl md:text-5xl my-4 leading-relaxed md:leading-snug">ЛАКОМСТВА КУСЬ ДА ГРЫЗЬ</p>
+          <p class="text-lg md:text-base leading-snug text-opacity-100">
+            Натуральные лакомства для собак по разумным ценам от производителя.
+            Отправь заявку и получи выгодное предложение о сотрудничестве!
+          </p>
+          <div class="text-center mt-6">
+            <button data-modal-target="defaultModal" data-modal-toggle="defaultModal"
+              class="block text-white bg-[#402c1c] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              type="button">
+              Отправить заявку
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='my-10 p-10 w-screen bg-[#402c1c] text-white flex items-center justify-center'>
+      <span class='flex items-center md:pr-20'>
+        <ion-icon name="hand-left-outline" class="text-5xl pr-2"></ion-icon>
+        <p class=''>Ручная работа</p>
+      </span>
+      <span class='flex items-center'>
+        <ion-icon name="bag-handle-outline" class="text-5xl pr-2"></ion-icon>
+        <p class=''>Удобная упаковка</p>
+      </span>
+      <span class='flex items-center md:pl-20'>
+        <ion-icon name="car-sport-outline" class="text-5xl pr-2"></ion-icon>
+        <p class=''>Быстрая доставка</p>
+      </span>
+    </div>
+  </section>
+
+  <section>
+    <div class="flex flex-col w-full p-8 my-6 md:my-50 md:mx-50">
+      <p class="text-lg md:text-base leading-snug text-opacity-100">
+        Компания "Кусь да Грызь" уже более трёх лет производит натуральные
+        лакомства для собак из мяса и субпродуктов: говядины, утки и
+        свинины. Наш продукт биологического происхождения и не имеет
+        химических добавок. Бережная сушка оставляет все полезные
+        микроэлементы, а самое главное - вкус мяса. И именно поэтому
+        тысячи счастливых собак уже попробовали наши лакомства. Мы
+        предлагаем сотрудничество магазинам и дистрибьюторам России и
+        стран СНГ.
+      </p>
+    </div>
+  </section>
+
+  <section id="about py-20 my-20">
+  <div class="gallery js-flickity"
+    data-flickity-options='{ "wrapAround": true }'>
+    <img class="gallery-cell md:h-96" src="assets/food1.jpg" alt="">
+    <img class="gallery-cell md:h-96" src="assets/food2.jpg" alt="">
+    <img class="gallery-cell md:h-96" src="assets/food3.jpg" alt="">
+  </div>
+
+  </section>
+
+  <section id="contacts">
+    <div class="md:flex p-8 my-6 md:my-50 md:text-right">
+      <div class="w-full">
+        <p class="text-2xl md:text-base leading-snug text-opacity-100 md:text-left">
+          Индивидуальный предприниматель Старков Антон Евгеньевич <br>
+
+          ИНН 246006792717 <br>
+
+          ОГРНИП 318246800149634 <br>
+
+          г. Красноярск ул. Академгородок 50а к1 <br> <br> <br>
+        </p>
+      </div>
+      <div class="w-full">
+        <p class="underline text-2xl md:text-base leading-snug text-opacity-100 md:text-right">
+          <a href="tel:+7(967)-602-9791">
+            +7(967)-602-9791 Отдел продаж (Красноярск)
+          </a><br>
+
+          <a href="mailto:tarkov_anton@bk.ru">
+            starkov_anton@bk.ru
+          </a><br>
+
+          <a href="https://www.wildberries.ru/seller/829213">Магазин Wildberries</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="w-screen bg-[#402c1c]">
+    <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+      <span class="text-sm text-white sm:text-center dark:text-gray-400">© 2023 <a href="https://flowbite.com/" class="hover:underline">Кусь да грызь™</a>. Все права защищены.
+      </span>
+    </div>
+  </footer>
+  <script>
+    function menu(e) {
+      let list = document.querySelector('ul');
+      e.name === 'menu' ? (e.name = "close", list.classList.add('top-[100px]'), list.classList.add('opacity-100')) : (e.name = "menu", list.classList.remove('top-[100px]'), list.classList.remove('opacity-100'))
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+</body>
+
+</html>
