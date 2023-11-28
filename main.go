@@ -3,6 +3,8 @@ package main
 import (
     "html/template"
     "net/http"
+    "net/smtp"
+    "os"
     "fmt"
 )
 
@@ -25,13 +27,32 @@ func main() {
             Phone: r.FormValue("phone"),
         }
 
-        fmt.Println(details.Name)
-        fmt.Println(details.Phone)
-
+        sendMail([]byte(details.Name + " " + details.Phone))
         tmpl.Execute(w, struct{ Success bool }{true})
     })
 
     fs := http.FileServer(http.Dir("assets/"))
     http.Handle("/assets/", http.StripPrefix("/assets/", fs))
     http.ListenAndServe(":8080", nil)
+}
+
+func sendMail(message []byte)  {
+    from := os.Getenv("MAIL_FROM")
+    password := os.Getenv("MAIL_PASS")
+
+    to := []string{
+        os.Getenv("MAIL_TO"),
+    }
+
+    smtpHost := "smtp.gmail.com"
+    smtpPort := "587"
+
+    auth := smtp.PlainAuth("", from, password, smtpHost)
+
+	err := smtp.SendMail(smtpHost + ":" + smtpPort, auth, from, to, message)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    fmt.Println("Email Sent Successfully!")
 }
