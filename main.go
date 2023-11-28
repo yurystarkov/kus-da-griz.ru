@@ -49,7 +49,7 @@ func sendMail(message []byte)  {
 
     auth := smtp.PlainAuth("", from, password, smtpHost)
 
-	err := smtp.SendMail(smtpHost + ":" + smtpPort, auth, from, to, message)
+    err := smtp.SendMail(smtpHost + ":" + smtpPort, auth, from, to, message)
     if err != nil {
         fmt.Println(err)
         return
