@@ -33,7 +33,7 @@ func main() {
 
     fs := http.FileServer(http.Dir("assets/"))
     http.Handle("/assets/", http.StripPrefix("/assets/", fs))
-    http.ListenAndServe(os.Getenv("PORT"), nil)
+    http.ListenAndServe(":8080", nil)
 }
 
 func sendMail(message []byte)  {
