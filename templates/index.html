@@ -4,50 +4,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>КУСЬ ДА ГРЫЗЬ</title>
+  <link rel="icon" href="assets/images/favicon.ico">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="assets/script.js"></script>
+
+  <!-- tailwind, ionicons, daisyui, flowbite -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/daisyui@3.8.3/dist/full.css" rel="stylesheet" type="text/css" />
-  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
-  <title>КУСЬ ДА ГРЫЗЬ</title>
-  <link rel="icon" href="assets/images/favicon.ico">
+
   <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
   <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-  <script src="assets/script.js"></script>
-  <link rel="stylesheet" href="assets/style.css">
 </head>
 
 <body class="bg-[url('assets/images/background.png')]">
 
   <!-- NAVIGATION -->
-  <nav class="sticky w-screen top-0 h-21 p-5 bg-[#f0d48c] shadow md:flex md:items-center md:justify-between">
-    <div class="flex justify-between items-center">
-      <span class="cursor-pointer">
-        <a href="index.html"><img class="h-16 inline" src="assets/images/logo.png"></a>
-      </span>
-
-      <span class="mx-2 md:pl-10">
-        <a href="tel:+7(967)-602-9791" class="text-lg flex items-center justify-center md:text-xl md:mx-4 md:my-6">
-          +7(967)-602-9791
-        </a>
-      </span>
-
-      <span class="text-3xl cursor-pointer mx-2 md:hidden block">
-        <ion-icon name="menu" onclick="menu(this)"></ion-icon>
-      </span>
-    </div>
-
-    <ul
-      class="md:flex md:items-center md:z-auto md:static absolute bg-[#f0d48c] w-full left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-7 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-500">
-      <li class="mx-4 my-6 md:my-0">
-        <a href="#about" class="text-xl duration-500">О НАС</a>
-      </li>
-      <li class="mx-4 my-6 md:my-0">
-        <a href="#contacts" class="text-xl duration-500">КОНТАКТЫ</a>
-      </li>
-    </ul>
-  </nav>
+  {{template "_navbar.html" .}}
 
   <!-- Main modal -->
   <div id="defaultModal" tabindex="-1" aria-hidden="true"
