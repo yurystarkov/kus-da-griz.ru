@@ -7,7 +7,7 @@ body { font-family: sans-serif; }
 
 .gallery-cell {
   width: 66%;
-  height: 200px;
+  height: 13rem;
   margin-right: 10px;
   counter-increment: gallery-cell;
 }

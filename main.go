@@ -14,7 +14,11 @@ type CustomerInfo struct {
 }
 
 func main() {
-    tmpl := template.Must(template.ParseGlob("./templates/*.html"))
+    tmpl := template.Must(template.ParseFiles(
+        "./templates/index.html",
+        "./templates/contact_form.html",
+        "./templates/navbar.html",
+    ))
 
     http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
         if r.Method != http.MethodPost {
