@@ -5,13 +5,7 @@ import (
     "net/http"
     "net/smtp"
     "os"
-    "fmt"
 )
-
-type CustomerInfo struct {
-    Name  string
-    Phone string
-}
 
 func main() {
     tmpl := template.Must(template.ParseFiles(
@@ -26,12 +20,10 @@ func main() {
             return
         }
 
-        details := CustomerInfo{
-            Name:  r.FormValue("name"),
-            Phone: r.FormValue("phone"),
-        }
+        name := r.FormValue("name")
+        phone := r.FormValue("phone")
 
-        sendMail([]byte(details.Name + " " + details.Phone))
+        sendMail([]byte(name + " " + phone))
         tmpl.Execute(w, struct{ Success bool }{true})
     })
 
@@ -43,20 +35,10 @@ func main() {
 func sendMail(message []byte)  {
     from := os.Getenv("MAIL_FROM")
     password := os.Getenv("MAIL_PASS")
-
-    to := []string{
-        os.Getenv("MAIL_TO"),
-    }
-
+    to := []string{os.Getenv("MAIL_TO")}
     smtpHost := "smtp.gmail.com"
     smtpPort := "587"
 
     auth := smtp.PlainAuth("", from, password, smtpHost)
-
-    err := smtp.SendMail(smtpHost + ":" + smtpPort, auth, from, to, message)
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
-    fmt.Println("Email Sent Successfully!")
+    smtp.SendMail(smtpHost + ":" + smtpPort, auth, from, to, message)
 }
