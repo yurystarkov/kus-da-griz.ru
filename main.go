@@ -11,14 +11,21 @@ import (
     "time"
 )
 
-var tmpl = template.Must(template.ParseFiles(
+var indexTmpl = template.Must(template.ParseFiles(
     "./templates/index.html",
+    "./templates/contact_form.html",
+    "./templates/navbar.html",
+))
+
+var catalogTmpl = template.Must(template.ParseFiles(
+    "./templates/catalog.html",
     "./templates/contact_form.html",
     "./templates/navbar.html",
 ))
 
 func main() {
     http.HandleFunc("/", index)
+    http.HandleFunc("/catalog", catalog)
 
     fs := http.FileServer(http.Dir("assets/"))
     http.Handle("/assets/", http.StripPrefix("/assets/", fs))
@@ -26,9 +33,13 @@ func main() {
     http.ListenAndServe(":8080", nil)
 }
 
+func catalog(w http.ResponseWriter, r *http.Request) {
+    catalogTmpl.Execute(w, nil)
+}
+
 func index(w http.ResponseWriter, r *http.Request) {
     if r.Method != http.MethodPost {
-        tmpl.Execute(w, nil)
+        indexTmpl.Execute(w, nil)
         return
     }
 
@@ -36,7 +47,7 @@ func index(w http.ResponseWriter, r *http.Request) {
     phone := r.FormValue("phone")
 
     sendMail([]byte(name + " " + phone))
-    tmpl.Execute(w, struct{ Success bool }{true})
+    indexTmpl.Execute(w, struct{ Success bool }{true})
 }
 
 func sendMail(message []byte) {
