@@ -11,6 +11,18 @@ import (
     "time"
 )
 
+type CustomerInfo struct {
+    Name  string
+    Phone string
+}
+
+type ProductData struct {
+    Name       string
+    Descrption string
+    Image      string
+    Price      int
+}
+
 var indexTmpl = template.Must(template.ParseFiles(
     "./templates/index.html",
     "./templates/contact_form.html",
@@ -43,10 +55,12 @@ func index(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    name := r.FormValue("name")
-    phone := r.FormValue("phone")
+    customer_info := CustomerInfo{
+        Name:  r.FormValue("name"),
+        Phone: r.FormValue("phone"),
+    }
 
-    sendMail([]byte(name + " " + phone))
+    sendMail([]byte(customer_info.Name + " " + customer_info.Phone))
     indexTmpl.Execute(w, struct{ Success bool }{true})
 }
 
