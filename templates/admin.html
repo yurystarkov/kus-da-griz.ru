@@ -1,0 +1,10 @@
+{{if .Success}}
+    <h1>Thanks for your message!</h1>
+{{else}}
+    <h1>Введите одноразовый пароль</h1>
+    <form method="POST">
+        <label>Одноразовый пароль:</label><br />
+        <input type="text" name="otp"><br />
+        <input type="submit">
+    </form>
+{{end}}

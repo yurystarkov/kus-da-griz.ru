@@ -1,15 +1,13 @@
 package main
 
 import (
-	"crypto/hmac"
-	"crypto/sha1"
-	"encoding/binary"
+	"fmt"
 	"html/template"
-	"log"
 	"net/http"
 	"net/smtp"
 	"os"
-	"time"
+
+	"github.com/pquerna/otp/totp"
 
 	bolt "go.etcd.io/bbolt"
 )
@@ -23,7 +21,7 @@ type ProductData struct {
 	Name       string
 	Descrption string
 	ImagePath  string
-	Price      int
+	Price      string
 }
 
 var indexTmpl = template.Must(template.ParseFiles(
@@ -40,6 +38,7 @@ var catalogTmpl = template.Must(template.ParseFiles(
 func main() {
 	http.HandleFunc("/", index)
 	http.HandleFunc("/catalog", catalog)
+	http.HandleFunc("/admin", admin)
 
 	fs := http.FileServer(http.Dir("assets/"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
@@ -47,12 +46,34 @@ func main() {
 	http.ListenAndServe(":8080", nil)
 }
 
-func catalog(w http.ResponseWriter, r *http.Request) {
+func admin(w http.ResponseWriter, r *http.Request) {
+	loginTmpl := template.Must(template.ParseFiles("./templates/admin.html"))
+	if r.Method != http.MethodPost {
+		loginTmpl.Execute(w, nil)
+		return
+	}
+	if totp.Validate(r.FormValue("otp"), os.Getenv("SECRET")) {
+		loginTmpl.Execute(w, struct{ Success bool }{true})
+	}
+}
+
+func setupDB() (*bolt.DB, error) {
 	db, err := bolt.Open("products.db", 0600, nil)
 	if err != nil {
-		log.Fatal(err)
+		return nil, fmt.Errorf("could not open db, %v", err)
 	}
+	db.Update(func(tx *bolt.Tx) error {
+		_, err := tx.CreateBucketIfNotExists([]byte("Products"))
+		if err != nil {
+			return fmt.Errorf("create bucket: %s", err)
+		}
+		return nil
+	})
 	defer db.Close()
+	return db, nil
+}
+
+func catalog(w http.ResponseWriter, r *http.Request) {
 	catalogTmpl.Execute(w, nil)
 }
 
@@ -67,11 +88,11 @@ func index(w http.ResponseWriter, r *http.Request) {
 		Phone: r.FormValue("phone"),
 	}
 
-	sendMail([]byte(customer_info.Name + " " + customer_info.Phone))
+	sendMailtoAdmin([]byte(customer_info.Name + " " + customer_info.Phone))
 	indexTmpl.Execute(w, struct{ Success bool }{true})
 }
 
-func sendMail(message []byte) {
+func sendMailtoAdmin(message []byte) {
 	from := os.Getenv("MAIL_FROM")
 	password := os.Getenv("MAIL_PASS")
 	to := []string{os.Getenv("MAIL_TO")}
@@ -80,36 +101,4 @@ func sendMail(message []byte) {
 
 	auth := smtp.PlainAuth("", from, password, smtpHost)
 	smtp.SendMail(smtpHost+":"+smtpPort, auth, from, to, message)
-}
-
-func generateTOTP(secret string) (uint32, error) {
-	// Convert the secret to byte array
-	secretBytes := []byte(secret)
-
-	// Get the number of 30-second intervals since the Unix epoch
-	interval := time.Now().Unix() / 30
-
-	// Convert the interval to byte array
-	intervalBytes := make([]byte, 8)
-	binary.BigEndian.PutUint64(intervalBytes, uint64(interval))
-
-	// Create a new HMAC hasher
-	hasher := hmac.New(sha1.New, secretBytes)
-
-	// Write the interval to the hasher
-	_, err := hasher.Write(intervalBytes)
-	if err != nil {
-		return 0, err
-	}
-
-	// Get the result of the HMAC and apply dynamic truncation
-	hmacResult := hasher.Sum(nil)
-	offset := hmacResult[len(hmacResult)-1] & 0x0F
-	truncatedHash := hmacResult[offset : offset+4]
-
-	// Convert the truncated hash to an integer
-	code := binary.BigEndian.Uint32(truncatedHash) & 0x7FFFFFFF
-	code = code % 1000000
-
-	return code, nil
 }
