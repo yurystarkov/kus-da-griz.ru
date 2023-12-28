@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
-	"net/smtp"
 	"os"
+
+	"github.com/yurystarkov/kus-da-griz.ru/mail"
 
 	"github.com/pquerna/otp/totp"
 
@@ -88,17 +89,6 @@ func index(w http.ResponseWriter, r *http.Request) {
 		Phone: r.FormValue("phone"),
 	}
 
-	sendMailtoAdmin([]byte(customer_info.Name + " " + customer_info.Phone))
+	mail.SendMailtoAdmin([]byte(customer_info.Name + " " + customer_info.Phone))
 	indexTmpl.Execute(w, struct{ Success bool }{true})
-}
-
-func sendMailtoAdmin(message []byte) {
-	from := os.Getenv("MAIL_FROM")
-	password := os.Getenv("MAIL_PASS")
-	to := []string{os.Getenv("MAIL_TO")}
-	smtpHost := "smtp.gmail.com"
-	smtpPort := "587"
-
-	auth := smtp.PlainAuth("", from, password, smtpHost)
-	smtp.SendMail(smtpHost+":"+smtpPort, auth, from, to, message)
 }
