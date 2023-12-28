@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/yurystarkov/kus-da-griz.ru/mail"
+	"github.com/yurystarkov/kus-da-griz.ru/mailing"
 
 	"github.com/pquerna/otp/totp"
 
@@ -89,6 +89,6 @@ func index(w http.ResponseWriter, r *http.Request) {
 		Phone: r.FormValue("phone"),
 	}
 
-	mail.SendMailtoAdmin([]byte(customer_info.Name + " " + customer_info.Phone))
+	mailing.SendMailtoAdmin([]byte(customer_info.Name + " " + customer_info.Phone))
 	indexTmpl.Execute(w, struct{ Success bool }{true})
 }
