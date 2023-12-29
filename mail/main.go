@@ -1,4 +1,4 @@
-package mailing
+package mail
 
 import (
 	"net/smtp"
