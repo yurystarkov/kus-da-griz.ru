@@ -2,7 +2,6 @@ package data
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 )
@@ -26,7 +25,7 @@ func Products() []ProductData {
 		}
 		var product ProductData
 		err = json.Unmarshal([]byte(productFileContent), &product); if err != nil {
-			fmt.Println(err)
+			log.Println(err)
 		}
 		products = append(products, product)
 	}
