@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/pquerna/otp/totp"
+	"github.com/yurystarkov/kus-da-griz.ru/data"
 	"github.com/yurystarkov/kus-da-griz.ru/mail"
 )
 
@@ -31,7 +32,7 @@ func Catalog(w http.ResponseWriter, r *http.Request) {
 		"./templates/navbar.html",
 	))
 
-	catalogTmpl.Execute(w, nil)
+	catalogTmpl.Execute(w, data.Products())
 }
 
 func Index(w http.ResponseWriter, r *http.Request) {

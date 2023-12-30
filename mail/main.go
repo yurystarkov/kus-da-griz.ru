@@ -1,6 +1,7 @@
 package mail
 
 import (
+	"log"
 	"net/smtp"
 	"os"
 )
@@ -13,5 +14,8 @@ func SendMailtoAdmin(message []byte) {
 	smtpPort := "587"
 
 	auth := smtp.PlainAuth("", from, password, smtpHost)
-	smtp.SendMail(smtpHost+":"+smtpPort, auth, from, to, message)
+	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, from, to, message)
+	if err != nil {
+		log.Println(err)
+	}
 }
