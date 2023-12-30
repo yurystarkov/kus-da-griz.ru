@@ -14,13 +14,6 @@ type CustomerInfo struct {
 	Phone string
 }
 
-type ProductData struct {
-	Name       string
-	Descrption string
-	ImagePath  string
-	Price      string
-}
-
 func Admin(w http.ResponseWriter, r *http.Request) {
 	loginTmpl := template.Must(template.ParseFiles("./templates/admin.html"))
 	if r.Method != http.MethodPost {
