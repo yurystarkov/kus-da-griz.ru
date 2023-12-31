@@ -7,11 +7,17 @@
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
+        <a href="./delete">Добавить</a>
+
         {{ range . }}
-        <img src="{{ .ImagePath }}"/>
-        <h1>{{ .Name }}</h1>
-        <p>{{ .Description }}</p>
-        <p>{{ .Price }}</p>
+            <h1>{{ .ID }}</h1>
+            <img src="{{ .ImagePath }}"/>
+            <h2>{{ .Name }}</h2>
+            <p>{{ .Description }}</p>
+            <p>{{ .Price }}</p>
+            <a href="./delete">Удалить</a>
+            <a href="./change">Изменить</a>
+            <hr>
         {{ end }}
     </body>
 </html>

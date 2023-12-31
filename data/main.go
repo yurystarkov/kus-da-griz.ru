@@ -7,10 +7,11 @@ import (
 )
 
 type ProductData struct {
-	Name       string `json:"name"`
+	ID          string `json:"id"`
+	Name        string `json:"name"`
 	Description string `json:"description"`
-	ImagePath  string `json:"image_path"`
-	Price      string `json:"price"`
+	ImagePath   string `json:"image_path"`
+	Price       string `json:"price"`
 }
 
 func Products() []ProductData {
