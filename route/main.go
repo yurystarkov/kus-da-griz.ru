@@ -8,6 +8,13 @@ import (
 	"github.com/pquerna/otp/totp"
 	"github.com/yurystarkov/kus-da-griz.ru/data"
 	"github.com/yurystarkov/kus-da-griz.ru/mail"
+	"github.com/gorilla/sessions"
+)
+
+var (
+    // key must be 16, 24 or 32 bytes long (AES-128, AES-192 or AES-256)
+    key = []byte(os.Getenv("AUTH_KEY"))
+    store = sessions.NewCookieStore(key)
 )
 
 type CustomerInfo struct {
@@ -15,15 +22,24 @@ type CustomerInfo struct {
 	Phone string
 }
 
-func Admin(w http.ResponseWriter, r *http.Request) {
-	loginTmpl := template.Must(template.ParseFiles("./templates/admin.html"))
+func Login(w http.ResponseWriter, r *http.Request) {
+	session, _ := store.Get(r, "kus-da-griz-cookie")
+	loginTmpl := template.Must(template.ParseFiles("./templates/login.html"))
 	if r.Method != http.MethodPost {
 		loginTmpl.Execute(w, nil)
 		return
 	}
-	if totp.Validate(r.FormValue("otp"), os.Getenv("SECRET")) {
-		loginTmpl.Execute(w, struct{ Success bool }{true})
+	if totp.Validate(r.FormValue("otp"), os.Getenv("OTP_SECRET")) {
+		session.Values["authenticated"] = true
+		session.Save(r, w)
+		loginTmpl.Execute(w, struct{Success bool}{true})
 	}
+}
+
+func Logout(w http.ResponseWriter, r *http.Request) {
+    session, _ := store.Get(r, "cookie-name")
+    session.Values["authenticated"] = false
+    session.Save(r, w)
 }
 
 func Catalog(w http.ResponseWriter, r *http.Request) {
