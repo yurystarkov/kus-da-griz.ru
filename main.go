@@ -11,6 +11,7 @@ func main() {
 	http.HandleFunc("/catalog", route.Catalog)
 	http.HandleFunc("/login"  , route.Login)
 	http.HandleFunc("/logout" , route.Logout)
+	http.HandleFunc("/admin"  , route.Admin)
 
 	fs := http.FileServer(http.Dir("assets/"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))

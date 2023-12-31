@@ -12,7 +12,6 @@ import (
 )
 
 var (
-    // key must be 16, 24 or 32 bytes long (AES-128, AES-192 or AES-256)
     key = []byte(os.Getenv("AUTH_KEY"))
     store = sessions.NewCookieStore(key)
 )
@@ -37,7 +36,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 }
 
 func Logout(w http.ResponseWriter, r *http.Request) {
-    session, _ := store.Get(r, "cookie-name")
+    session, _ := store.Get(r, "kus-da-griz-cookie")
     session.Values["authenticated"] = false
     session.Save(r, w)
 }
@@ -48,6 +47,16 @@ func Catalog(w http.ResponseWriter, r *http.Request) {
 		"./templates/navbar.html",
 	))
 
+	catalogTmpl.Execute(w, data.Products())
+}
+
+func Admin(w http.ResponseWriter, r *http.Request) {
+	session, _ := store.Get(r, "kus-da-griz-cookie")
+	if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
+		http.Error(w, "Forbidden", http.StatusForbidden)
+		return
+	}
+	catalogTmpl := template.Must(template.ParseFiles("./templates/admin.html"))
 	catalogTmpl.Execute(w, data.Products())
 }
 

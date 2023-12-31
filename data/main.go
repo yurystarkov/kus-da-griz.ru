@@ -8,7 +8,7 @@ import (
 
 type ProductData struct {
 	Name       string `json:"name"`
-	Descrption string `json:"description"`
+	Description string `json:"description"`
 	ImagePath  string `json:"image_path"`
 	Price      string `json:"price"`
 }
