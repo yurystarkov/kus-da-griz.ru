@@ -3,6 +3,7 @@ module github.com/yurystarkov/kus-da-griz.ru
 go 1.18
 
 require (
+	github.com/gorilla/mux v1.8.1
 	github.com/gorilla/sessions v1.2.2
 	github.com/pquerna/otp v1.4.0
 	go.etcd.io/bbolt v1.3.8
