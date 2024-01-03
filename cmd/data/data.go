@@ -1,3 +1,5 @@
+// simple CRUD with hierarchical
+// filesystem
 package data
 
 import (
@@ -38,4 +40,8 @@ func ReadProducts() []Product {
 	}
 
 	return products
+}
+
+func DeleteProduct(id string ) {
+	os.RemoveAll("db/" + id)
 }
