@@ -1,37 +1,40 @@
 package data
 
 import (
-	"encoding/json"
 	"io/ioutil"
-	"log"
+	"os"
 )
 
 type ProductData struct {
-	ID          string `json:"id"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	ImagePath   string `json:"image_path"`
-	Price       string `json:"price"`
+	ID          string
+	Name        string
+	Description string
+	ImagePath   string
+	Price       string
 }
 
-func Products() []ProductData {
-	var products []ProductData
-	productFiles, err := ioutil.ReadDir("db")
-	if err != nil {
-		log.Println(err)
-	}
+func ReadProduct(id string) ProductData {
+	name       , _ := os.ReadFile("db/" + id + "/name")
+	description, _ := os.ReadFile("db/" + id + "/description")
+	imagePath  , _ := os.ReadFile("db/" + id + "/imagepath")
+	price      , _ := os.ReadFile("db/" + id + "/price")
 
-	for _, productFile := range productFiles {
-		productFileContent, err := ioutil.ReadFile("db/" + productFile.Name())
-		if err != nil {
-			log.Println(err)
-		}
-		var product ProductData
-		err = json.Unmarshal([]byte(productFileContent), &product)
-		if err != nil {
-			log.Println(err)
-		}
-		products = append(products, product)
+	return ProductData{
+		id,
+		string(name),
+		string(description),
+		string(imagePath),
+		string(price),
+	}
+}
+
+func ReadProducts() []ProductData {
+	var products []ProductData
+
+	productIDs, _ := ioutil.ReadDir("db/")
+
+	for _, productID := range productIDs {
+		products = append(products, ReadProduct(productID.Name()))
 	}
 
 	return products

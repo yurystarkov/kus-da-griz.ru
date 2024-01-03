@@ -47,7 +47,7 @@ func Catalog(w http.ResponseWriter, r *http.Request) {
 		"./templates/navbar.html",
 	))
 
-	catalogTmpl.Execute(w, data.Products())
+	catalogTmpl.Execute(w, data.ReadProducts())
 }
 
 func Admin(w http.ResponseWriter, r *http.Request) {
@@ -57,7 +57,7 @@ func Admin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	catalogTmpl := template.Must(template.ParseFiles("./templates/admin.html"))
-	catalogTmpl.Execute(w, data.Products())
+	catalogTmpl.Execute(w, data.ReadProducts())
 }
 
 func Index(w http.ResponseWriter, r *http.Request) {
