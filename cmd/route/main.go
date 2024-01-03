@@ -6,8 +6,8 @@ import (
 	"os"
 
 	"github.com/pquerna/otp/totp"
-	"github.com/yurystarkov/kus-da-griz.ru/data"
-	"github.com/yurystarkov/kus-da-griz.ru/mail"
+	"github.com/yurystarkov/kus-da-griz.ru/cmd/data"
+	"github.com/yurystarkov/kus-da-griz.ru/cmd/mail"
 	"github.com/gorilla/sessions"
 )
 

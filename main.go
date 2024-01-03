@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/yurystarkov/kus-da-griz.ru/route"
+	"github.com/yurystarkov/kus-da-griz.ru/cmd/route"
 )
 
 func main() {
