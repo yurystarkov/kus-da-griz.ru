@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-type ProductData struct {
+type Product struct {
 	ID          string
 	Name        string
 	Description string
@@ -13,13 +13,13 @@ type ProductData struct {
 	Price       string
 }
 
-func ReadProduct(id string) ProductData {
+func ReadProduct(id string) Product {
 	name       , _ := os.ReadFile("db/" + id + "/name")
 	description, _ := os.ReadFile("db/" + id + "/description")
 	imagePath  , _ := os.ReadFile("db/" + id + "/imagepath")
 	price      , _ := os.ReadFile("db/" + id + "/price")
 
-	return ProductData{
+	return Product{
 		id,
 		string(name),
 		string(description),
@@ -28,8 +28,8 @@ func ReadProduct(id string) ProductData {
 	}
 }
 
-func ReadProducts() []ProductData {
-	var products []ProductData
+func ReadProducts() []Product {
+	var products []Product
 
 	productIDs, _ := ioutil.ReadDir("db/")
 
