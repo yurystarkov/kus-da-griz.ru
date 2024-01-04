@@ -1,5 +1,6 @@
-// simple CRUD with hierarchical
-// filesystem
+// simple CRUD with hierarchical filesystem
+// directory names are IDs, filenames are
+// keys and their contents are values
 package data
 
 import (
