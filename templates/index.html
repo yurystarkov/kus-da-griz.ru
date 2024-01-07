@@ -63,6 +63,16 @@
   </section>
 
   <section>
+    <div class="main-carousel" data-flickity='{ "wrapAround": true }'>
+      {{ range . }}
+        <div class="carousel-cell">
+          <img src="{{ .ImagePath }}" class="h-80 w-72 object-cover rounded-t-xl" />
+        </div>
+      {{ end }}
+    </div>
+  </section>
+
+  <section>
     <div class="flex flex-col w-full p-8 my-6 md:my-50 md:mx-50">
       <p class="text-lg md:text-base leading-snug text-opacity-100">
         Компания "Кусь да Грызь" уже более трёх лет производит натуральные

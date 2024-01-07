@@ -69,7 +69,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	))
 
 	if r.Method != http.MethodPost {
-		indexTmpl.Execute(w, nil)
+		indexTmpl.Execute(w, data.ReadProducts())
 		return
 	}
 
@@ -79,5 +79,4 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	}
 
 	mail.SendMailtoAdmin([]byte(customer_info.Name + " " + customer_info.Phone))
-	indexTmpl.Execute(w, struct{ Success bool }{true})
 }
