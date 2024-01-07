@@ -9,6 +9,7 @@ import (
 	"github.com/yurystarkov/kus-da-griz.ru/cmd/data"
 	"github.com/yurystarkov/kus-da-griz.ru/cmd/mail"
 	"github.com/gorilla/sessions"
+	_ "github.com/joho/godotenv/autoload"
 )
 
 var (

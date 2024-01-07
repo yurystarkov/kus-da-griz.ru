@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/smtp"
 	"os"
+	_ "github.com/joho/godotenv/autoload"
 )
 
 func SendMailtoAdmin(message []byte) {
