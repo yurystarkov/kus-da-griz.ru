@@ -17,10 +17,10 @@ type Product struct {
 }
 
 func ReadProduct(id string) Product {
-	name       , _ := os.ReadFile("db/" + id + "/name")
+	name, _ := os.ReadFile("db/" + id + "/name")
 	description, _ := os.ReadFile("db/" + id + "/description")
-	imagePath  , _ := os.ReadFile("db/" + id + "/imagepath")
-	price      , _ := os.ReadFile("db/" + id + "/price")
+	imagePath, _ := os.ReadFile("db/" + id + "/imagepath")
+	price, _ := os.ReadFile("db/" + id + "/price")
 
 	return Product{
 		id,
@@ -43,6 +43,36 @@ func ReadProducts() []Product {
 	return products
 }
 
-func DeleteProduct(id string ) {
+func CreateProduct(
+	id string,
+	name string,
+	price string,
+	description string,
+	imagePath string,
+) {
+	os.Mkdir("db/"+id, os.ModePerm)
+
+	err := os.WriteFile("db/"+id+"/name", []byte(name), 0666)
+	if err != nil {
+		panic(err)
+	}
+
+	os.WriteFile("db/"+id+"/price", []byte(price), 0666)
+	if err != nil {
+		panic(err)
+	}
+
+	os.WriteFile("db/"+id+"/description", []byte(description), 0666)
+	if err != nil {
+		panic(err)
+	}
+
+	os.WriteFile("db/"+id+"/imagepath", []byte(imagePath), 0666)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func DeleteProduct(id string) {
 	os.RemoveAll("db/" + id)
 }

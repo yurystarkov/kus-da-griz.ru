@@ -7,7 +7,7 @@
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
-        <a href="./create">Добавить</a>
+        <a href="./admin/create">Добавить</a>
         <hr>
         {{ range . }}
             <h1>{{ .ID }}</h1>
@@ -15,7 +15,7 @@
             <h2>{{ .Name }}</h2>
             <p>{{ .Description }}</p>
             <p>{{ .Price }}</p>
-            <a href="./delete">Удалить</a>
+            <a href="./admin/delete/{{ .ID }}">Удалить</a>
             <a href="./change">Изменить</a>
             <hr>
         {{ end }}
