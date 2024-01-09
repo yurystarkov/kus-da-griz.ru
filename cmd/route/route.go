@@ -37,14 +37,16 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	if totp.Validate(r.FormValue("otp"), os.Getenv("OTP_SECRET")) {
 		session.Values["authenticated"] = true
 		session.Save(r, w)
-		loginTmpl.Execute(w, struct{ Success bool }{true})
+		// loginTmpl.Execute(w, struct{ Success bool }{true})
 	}
+	http.Redirect(w, r, "/admin", http.StatusSeeOther)
 }
 
 func Logout(w http.ResponseWriter, r *http.Request) {
 	session, _ := store.Get(r, "kus-da-griz-cookie")
 	session.Values["authenticated"] = false
 	session.Save(r, w)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
 func Catalog(w http.ResponseWriter, r *http.Request) {
